@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+  <script type="text/javascript" src="drag.js"></script>
+  <script type="text/javascript">
+			// reference to the REDIPS.drag lib (global variable)
+			var rd = REDIPS.drag;
+
+      // startup
+      window.onload = function () {
+        // initialization
+        rd.init();
+        // "moved" event handler uses reference of the moved element
+        rd.myhandler_moved = function () {
+          set_drop_option(rd.obj);
+          console.log(rd.obj.parentNode.parentNode.parentNode.parentNode.childNodes);
+          /*var new_row = rd.obj.parentNode.parentNode.parentNode.parentNode.insertRow(1);
+          new_row.insertCell(0);
+          new_row.insertCell(0);
+          new_row.insertCell(0);*/
+        }
+        // "cloned" event handler uses reference of the source element (not cloned element)
+        rd.myhandler_cloned	= function () {
+          set_drop_option(rd.obj_old);
+        }
+      function set_drop_option (el) {
+        // loop up until found table
+        while (el && el.nodeName !== 'TABLE') {
+          el = el.parentNode;
+        }
+        // loop ends and "el" position should be table
+        rd.drop_option = 'switching';
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="drag">
+    <table>
+      <tr>
+        <td><div class="drag">Hello World</div></td><td><div class="drag">wow</div></td><td><div class="drag">Nic</div></td>
+      </tr>
+      <tr>
+        <td><div class="drag">Nice!</div></td><td><div>S tim nepohneš!</div></td><td><div class="drag">HaHa!</div></td>
+      </tr>
+      <tr>
+        <td><div class="drag">CCo tady mám psát?</div></td><td><div class="drag">:(</div></td><td><div class="drag">:P</div></td>
+      </tr>
+    </table>
+  </div>
+</body>
